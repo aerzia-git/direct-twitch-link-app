@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0610">
+<meta name="description" content="Ouvre directement le player Twitch d'une chaîne, sans l'application.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Direct Twitch">
+<title>Direct Twitch Link</title>
+<style>
+:root{
+  --bg:#0a0610; --bg2:#150b22; --card:#1a0f2b; --line:#2e1b4a;
+  --txt:#f5eefc; --mute:#a393bd; --violet:#9146ff; --rose:#ff4fa3;
+  --grad:linear-gradient(135deg,#9146ff,#ff4fa3);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root:not([data-theme="light"]){color-scheme:dark}
+*{box-sizing:inherit;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  background:radial-gradient(120% 60% at 50% -10%,#2a0f4d 0%,var(--bg) 60%) var(--bg) no-repeat;
+  color:var(--txt);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  min-height:100vh;display:flex;justify-content:center;padding:20px 16px 40px;
+}
+main{width:100%;max-width:440px}
+header{display:flex;align-items:center;gap:14px;margin:8px 0 28px}
+.logo{width:64px;height:64px;flex:none;filter:drop-shadow(0 6px 18px rgba(255,79,163,.35))}
+h1{font-size:26px;line-height:1.1;letter-spacing:-.02em;font-weight:800;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{color:var(--mute);font-size:14px;margin-top:4px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;
+  box-shadow:0 0 0 1px rgba(145,70,255,.08),0 20px 50px -20px rgba(145,70,255,.45)}
+.row{display:flex;gap:8px}
+input{flex:1;min-width:0;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;
+  color:var(--txt);font-size:17px;padding:14px 16px;outline:none}
+input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(145,70,255,.25)}
+input::placeholder{color:#6d5c88}
+button{font:inherit;border:0;cursor:pointer;color:#fff}
+button:focus-visible,a:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+.go{margin-top:12px;width:100%;background:var(--grad);border-radius:14px;padding:15px;font-size:17px;font-weight:700;
+  box-shadow:0 10px 24px -8px rgba(255,79,163,.6)}
+.go:active{transform:scale(.98)}
+.star{flex:none;width:52px;border-radius:14px;background:var(--bg);border:1.5px solid var(--line);font-size:22px;color:var(--mute)}
+.star.on{color:var(--rose);border-color:var(--rose)}
+.msg{min-height:20px;margin-top:10px;font-size:13px;color:var(--rose)}
+h2{font-size:16px;margin:30px 4px 12px;color:var(--mute);font-weight:600}
+ul{list-style:none;padding:0;display:grid;gap:10px}
+li{display:flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+li a{flex:1;display:flex;align-items:center;gap:12px;padding:14px;color:var(--txt);text-decoration:none;font-weight:700;font-size:16px;min-width:0}
+li a span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dot{width:34px;height:34px;border-radius:50%;background:var(--grad);flex:none;display:grid;place-items:center;font-size:15px}
+li button{background:none;color:var(--mute);width:48px;align-self:stretch;font-size:18px;border-left:1px solid var(--line)}
+li button:hover{color:var(--rose)}
+.empty{color:#6d5c88;text-align:center;font-size:14px;padding:22px;border:1.5px dashed var(--line);border-radius:16px;line-height:1.5}
+.hint{margin-top:30px;text-align:center;color:#6d5c88;font-size:12px;line-height:1.5}
+@media (display-mode:standalone){.hint{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" role="img" aria-label="Logo Direct Twitch Link">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9146ff"/><stop offset="1" stop-color="#ff4fa3"/></linearGradient></defs>
+      <rect width="64" height="64" rx="16" fill="#000"/>
+      <rect x="1.5" y="1.5" width="61" height="61" rx="14.5" fill="none" stroke="url(#g)" stroke-width="3"/>
+      <path d="M14 14h36v26l-8 8h-9l-6 6v-6H14z" fill="url(#g)"/>
+      <path d="M27 24v14l12-7z" fill="#000"/>
+    </svg>
+    <div>
+      <h1>Direct Twitch Link</h1>
+      <p>Ouvre le player, sans l'appli.</p>
+    </div>
+  </header>
+
+  <div class="box">
+    <div class="row">
+      <input id="ch" type="text" inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Nom de la chaîne" aria-label="Nom de la chaîne Twitch">
+      <button class="star" id="fav" aria-label="Ajouter aux favoris" title="Ajouter aux favoris">☆</button>
+    </div>
+    <button class="go" id="go">Lancer le player</button>
+    <div class="msg" id="msg" role="status"></div>
+  </div>
+
+  <h2>Favoris</h2>
+  <ul id="list"></ul>
+
+  <p class="hint">Astuce : dans Chrome, menu ⋮ puis « Ajouter à l'écran d'accueil » pour l'avoir comme une appli.</p>
+</main>
+
+<script>
+(function(){
+  var KEY="dtl_favs", PARENT="twitch.tv", favs=[];
+  var $=function(i){return document.getElementById(i)};
+  var input=$("ch"), msg=$("msg"), star=$("fav"), list=$("list");
+
+  function load(){try{favs=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){favs=[]}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(favs))}catch(e){msg.textContent="Impossible d'enregistrer ici."}}
+
+  function clean(v){
+    v=(v||"").trim().toLowerCase().replace(/^https?:\/\/(www\.)?twitch\.tv\//,"").replace(/^@/,"").split(/[/?#]/)[0];
+    return /^[a-z0-9_]{1,25}$/.test(v)?v:"";
+  }
+  function url(n){return "https://player.twitch.tv/?channel="+encodeURIComponent(n)+"&parent="+PARENT+"&autoplay=true"}
+  function open(n){
+    var a=document.createElement("a");a.href=url(n);a.target="_blank";a.rel="noopener noreferrer";
+    document.body.appendChild(a);a.click();a.remove();
+  }
+  function syncStar(){
+    var n=clean(input.value), on=n&&favs.indexOf(n)>-1;
+    star.textContent=on?"★":"☆";star.classList.toggle("on",!!on);
+  }
+  function render(){
+    list.innerHTML="";
+    if(!favs.length){
+      var e=document.createElement("div");e.className="empty";
+      e.textContent="Aucun favori pour l'instant. Tape un nom de chaîne puis touche l'étoile.";
+      list.appendChild(e);return;
+    }
+    favs.forEach(function(n){
+      var li=document.createElement("li");
+      var a=document.createElement("a");a.href=url(n);a.target="_blank";a.rel="noopener noreferrer";
+      var d=document.createElement("div");d.className="dot";d.textContent="▶";
+      var s=document.createElement("span");s.textContent=n;
+      a.append(d,s);
+      var b=document.createElement("button");b.textContent="✕";b.setAttribute("aria-label","Retirer "+n);
+      b.onclick=function(){favs=favs.filter(function(x){return x!==n});save();render();syncStar()};
+      li.append(a,b);list.appendChild(li);
+    });
+  }
+  function launch(){
+    var n=clean(input.value);
+    if(!n){msg.textContent="Entre un nom de chaîne valide (lettres, chiffres, _).";return}
+    msg.textContent="";open(n);
+  }
+  $("go").onclick=launch;
+  input.addEventListener("keydown",function(e){if(e.key==="Enter")launch()});
+  input.addEventListener("input",function(){msg.textContent="";syncStar()});
+  star.onclick=function(){
+    var n=clean(input.value);
+    if(!n){msg.textContent="Entre d'abord un nom de chaîne.";return}
+    var i=favs.indexOf(n);
+    if(i>-1)favs.splice(i,1);else favs.unshift(n);
+    save();render();syncStar();
+  };
+  load();render();
+})();
+</script>
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+</script>
+</body>
+</html>
