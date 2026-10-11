@@ -10,39 +10,17 @@ Ouvre directement le **player Twitch** (`player.twitch.tv`) d'une chaîne, sans 
 
 ---
 
-## 1. Mettre le projet en ligne (GitHub Pages, gratuit)
-
-Tout se fait depuis le navigateur, sans rien installer.
-
-1. Crée un compte sur [github.com](https://github.com) si besoin.
-2. Clique sur **+** (en haut à droite) puis **New repository**.
-   - Nom : `direct-twitch-link`
-   - Visibilité : **Public** (obligatoire pour Pages gratuit)
-   - Clique sur **Create repository**.
-3. Sur la page du dépôt vide, clique sur le lien **uploading an existing file**.
-4. Décompresse le ZIP sur ton ordinateur, ouvre le dossier, sélectionne **tout son contenu** (`index.html`, `manifest.json`, `sw.js`, `.nojekyll`, `README.md` et le dossier `icons`) et fais-le glisser dans la page GitHub.
-   Fais glisser le contenu du dossier, pas le dossier lui-même, sinon `index.html` ne sera pas à la racine.
-5. Clique sur **Commit changes**.
-6. Va dans **Settings → Pages**. Sous *Build and deployment*, choisis :
-   - Source : **Deploy from a branch**
-   - Branch : **main** / dossier **/ (root)** puis **Save**.
-7. Attends 1 à 2 minutes. Ton adresse apparaît en haut de la page Pages :
-
-   `https://VOTRE_PSEUDO.github.io/direct-twitch-link/`
-
-> Variante en ligne de commande : `git init`, `git add .`, `git commit -m "init"`, `git branch -M main`, `git remote add origin https://github.com/VOTRE_PSEUDO/direct-twitch-link.git`, `git push -u origin main`, puis l'étape 6.
-
-## 2. Installer l'application sur Android
+## 1. Installer l'application sur Android
 
 1. Ouvre ton adresse GitHub Pages dans **Chrome** sur ton téléphone.
 2. Menu **⋮ → Installer l'application** (ou *Ajouter à l'écran d'accueil*).
 3. Confirme. L'icône **Direct Twitch Link** apparaît sur ton écran d'accueil et s'ouvre en plein écran.
 
-## 3. Partager
+## 2. Partager
 
 Envoie simplement l'adresse `https://VOTRE_PSEUDO.github.io/direct-twitch-link/` : chaque personne l'installe avec l'étape 2. Les favoris sont propres à chaque appareil.
 
-## 4. (Optionnel) Obtenir un vrai fichier APK
+## 3. (Optionnel) Obtenir un vrai fichier APK
 
 Sans Android Studio :
 
